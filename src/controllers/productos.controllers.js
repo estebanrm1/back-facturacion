@@ -1,3 +1,4 @@
+import { log } from 'console';
 import Producto from '../models/producto';
 
 export const obtenerProductos = async (req, res) => {
@@ -38,3 +39,17 @@ export const crearProducto = async (req, res) => {
         });
     }
 };
+
+export const borrarProducto = async (req, res)=>{
+    try {
+        await Producto.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            mensaje: 'El producto fue eliminado conrrectamente'
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({
+            mensaje: 'Error no se pudo eliminar el producto',
+        });
+    }
+}
