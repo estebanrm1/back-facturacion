@@ -1,5 +1,6 @@
 import { log } from 'console';
 import Producto from '../models/producto';
+import { validationResult } from 'express-validator';
 
 export const obtenerProductos = async (req, res) => {
     try {
@@ -27,6 +28,7 @@ export const obtenerProducto = async (req, res) => {
 
 export const crearProducto = async (req, res) => {
     try {
+        //validar los datos del body antes de pedir algo a la BD
         const productoNuevo = new Producto(req.body);
         await productoNuevo.save();
         res.status(201).json({
